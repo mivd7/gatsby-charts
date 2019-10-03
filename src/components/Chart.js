@@ -4,25 +4,28 @@ import HighchartsReact from 'highcharts-react-official'
 
 const options = {
     chart: {
-        type: 'bar'
+        type: 'column'
     },
     title: {
-        text: 'Fruit Consumption'
+        text: 'CPL CPC whatever... whatever...'
     },
     xAxis: {
-        categories: ['Apples', 'Bananas', 'Oranges']
+        categories: ['Czech Republic', 'Hungary', 'Slovenia']
     },
     yAxis: {
         title: {
-            text: 'Fruit eaten'
+            text: 'Cost'
         }
     },
     series: [{
-        name: 'Jane',
-        data: [1, 5, 4]
+        name: 'Average EPC',
+        data: [0.026, 0.051 , 0.036]
     }, {
-        name: 'John',
-        data: [5, 7, 3]
+        name: 'Top EPC',
+        data: [0.1, 0.07, 0.03]
+    }, {
+        name: 'Market CPC',
+        data: [0.03,0.04,0.03]
     }]
 }
 
