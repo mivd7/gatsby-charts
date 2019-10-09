@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme => ({
     padding: "25px",
   },
   table: {
-    minWidth: 650,
+    minWidth: 1000,
   },
 }))
 
@@ -52,7 +52,7 @@ export default ({ data }) => {
           </TableHead>
           <TableBody>
             {edges.map(({ node }) => (
-              <TableRow key={node.id}>
+              <TableRow key={node.Country}>
                 <TableCell component="th" scope="node">
                   <b>{node.Country}</b>
                 </TableCell>
@@ -82,7 +82,6 @@ export const query = graphql`
     allChartStatsCsv {
       edges {
         node {
-          id
           Average_CPC
           CPA
           CTR

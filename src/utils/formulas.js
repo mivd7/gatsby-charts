@@ -4,5 +4,5 @@ export const divide = (dividend, divisor) => {
 }
 
 export const calculateROI = (rev, cost) => {
-  return (rev - cost) * 100
+  return rev - cost * 100
 }
