@@ -26,9 +26,8 @@ const useStyles = makeStyles(theme => ({
 
 export default ({ data }) => {
     const edges = data.allChartStatsCsv.edges
-    console.log(edges)
     const tableHeaders = edges.map(e => Object.keys(e.node))[0];
-    tableHeaders.shift()
+
     const filteredHeaders = tableHeaders.filter(h => h !== 'Country');
     const classes= useStyles();
     return (

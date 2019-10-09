@@ -23,6 +23,7 @@ export const query = graphql`
             edges {
               node {
                 id
+                Country
                 Average_CPC
                 CPA
                 CTR
@@ -30,7 +31,6 @@ export const query = graphql`
                 Conversion_Ratio
                 Conversions
                 Cost
-                Country
                 EPC
                 Impressions
                 ROI
