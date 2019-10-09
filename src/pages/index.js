@@ -1,16 +1,41 @@
 import React from "react"
-import { Link } from "gatsby"
+import { Link, graphql } from "gatsby"
 import Chart from '../components/Chart';
-
 import Layout from "../components/layout"
-import Image from "../components/image"
+// import Image from "../components/image"
 import SEO from "../components/seo"
 
-const IndexPage = () => (
-  <Layout>
-    <SEO title="Home" />
-    <Chart/>
-  </Layout>
-)
+export default ({ data }) => {
+  const csv = data.allChartStatsCsv.edges
+  console.log(csv)
+  return (
+    <Layout>
+      <SEO title="Home" />
+      <Chart data={csv}/>
+      <Link to="/table">See table</Link>
+    </Layout>
+  )
+}
 
-export default IndexPage
+export const query = graphql`
+    query {
+        allChartStatsCsv {
+            edges {
+              node {
+                id
+                Average_CPC
+                CPA
+                CTR
+                Clicks
+                Conversion_Ratio
+                Conversions
+                Cost
+                Country
+                EPC
+                Impressions
+                ROI
+                Revenue
+              }
+            }
+          }
+        }`
