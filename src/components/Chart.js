@@ -6,7 +6,14 @@ import MobileStepper from '@material-ui/core/MobileStepper';
 import Button from '@material-ui/core/Button';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
-import {availableCharts} from '../utils/chartOptions';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import TextField from '@material-ui/core/TextField';
+
+import {availableCharts} from '../lib/chartOptions';
+import {calculateRoi} from '../lib/formulas';
 
 const useStyles = makeStyles({
   root: {
@@ -16,7 +23,10 @@ const useStyles = makeStyles({
     backgroundColor: 'white',
     disabled: 'opacity: 0'
   },
-  disabledBtn: 0
+  disabledBtn: 0,
+  formControl: {
+    minWidth: 120,
+  },
 });
 
 const Chart = ({data}) => {
@@ -24,6 +34,25 @@ const Chart = ({data}) => {
   const theme = useTheme();
   const [activeStep, setActiveStep] = React.useState(0);
   const [chart, setChart] = React.useState(availableCharts[0])
+  const [values, setValues] = React.useState({
+      country: '',
+      cost: 0,
+  })
+  const [calculatedRoi, setCalculatedRoi] = React.useState(0)
+
+
+  const handleClick = () => {
+    if (values.country && values.cost) {
+      const countrySpecific = data.filter(data => data.node.Country === values.country)[0]
+      const roi = calculateRoi(countrySpecific.node.Revenue, Number(values.cost))
+      setCalculatedRoi(roi)
+    }
+  }
+
+  const handleChange = React.useCallback((event) => {
+    event.persist();
+    setValues(values => ({ ...values, [event.target.name]: event.target.value }));
+   }, [values]);
 
   const handleNext = () => {
     setChart(availableCharts[activeStep + 1])
@@ -36,7 +65,6 @@ const Chart = ({data}) => {
   };
 
   const countries = data.map(data => data.node.Country);
-
   const cpcOptions = {
     chart: {
       type: "column",
@@ -126,13 +154,45 @@ const Chart = ({data}) => {
 
     ],
   }
-
+  
   return (
     <div>
       {!data && <p>loading data</p>}
       {data && (<>
         {chart === 'cpc' && <HighchartsReact highcharts={Highcharts} options={cpcOptions} />}
-        {chart === 'roi' && <HighchartsReact highcharts={Highcharts} options={roiOptions} />}
+        {chart === 'roi' && <>
+          <HighchartsReact highcharts={Highcharts} options={roiOptions} />
+
+          <form className={classes.root} autoComplete="off">
+            <FormControl className={classes.formControl}>
+              <InputLabel htmlFor="country-simple">Country</InputLabel>
+              <Select
+                value={values.country}
+                onChange={handleChange}
+                name="country"
+                id="country"
+                inputProps={{
+                  name: 'country',
+                  id: 'country-simple',
+                }}
+              >
+                {countries.map(country => <MenuItem id={country} value={country}>{country}</MenuItem>)}
+              </Select>
+              <TextField
+                label="Cost"
+                name="cost"
+                id="cost"
+                value={values.cost}
+                onChange={handleChange}
+                type="number"
+                margin="normal"
+              />
+              <Button size="small" onClick={handleClick} disabled={activeStep === 2} >Calculate ROI </Button>
+              {calculatedRoi !== 0 && <ul><p>Your investment: $ {values.cost} in {values.country}</p>
+                                          <p>Your ROI: $ {calculatedRoi} </p></ul>}
+            </FormControl>
+          </form>
+          </>}
         {chart === 'clicks' && <HighchartsReact highcharts={Highcharts} options={clicksOptions} />}
 
         <MobileStepper

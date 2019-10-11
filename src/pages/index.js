@@ -5,13 +5,15 @@ import Layout from "../components/layout"
 // import Image from "../components/image"
 import SEO from "../components/seo"
 
+
 export default ({ data }) => {
   const csv = data.allChartStatsCsv.edges
-  console.log(csv)
+
   return (
     <Layout>
       <SEO title="Home" />
       <Chart data={csv} />
+
       <Link to="/table">See table</Link>
     </Layout>
   )
