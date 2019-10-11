@@ -1,16 +1,9 @@
 import React from "react"
 import Highcharts from "highcharts"
 import HighchartsReact from "highcharts-react-official"
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import MobileStepper from '@material-ui/core/MobileStepper';
-import Button from '@material-ui/core/Button';
-import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
-import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import TextField from '@material-ui/core/TextField';
+import { makeStyles, useTheme } from '@material-ui/core/styles'
+import {MobileStepper, Button, InputLabel, MenuItem, FormControl, Select, TextField} from '@material-ui/core';
+import {KeyboardArrowLeft, KeyboardArrowRight} from '@material-ui/icons';
 
 import {availableCharts} from '../lib/chartOptions';
 import {calculateRoi} from '../lib/formulas';
