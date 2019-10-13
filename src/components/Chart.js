@@ -4,8 +4,7 @@ import HighchartsReact from "highcharts-react-official"
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 import {MobileStepper, Button, InputLabel, MenuItem, FormControl, Select, TextField} from '@material-ui/core';
 import {KeyboardArrowLeft, KeyboardArrowRight} from '@material-ui/icons';
-
-import {availableCharts} from '../lib/chartOptions';
+import {availableCharts, roiOptions, clicksOptions, cpcOptions} from '../lib/chartOptions';
 import {calculateRoi} from '../lib/formulas';
 
 const useStyles = makeStyles({
@@ -58,103 +57,14 @@ const Chart = ({data}) => {
   };
 
   const countries = data.map(data => data.node.Country);
-  const cpcOptions = {
-    chart: {
-      type: "column",
-    },
-    title: {
-      text: "CPC / Cost / EPC ",
-    },
-    xAxis: {
-      categories: countries,
-    },
-    yAxis: {
-      title: {
-        text: "USD $",
-      },
-    },
-    series: [
-      {
-        name: "Average CPC",
-        data: data.map(data => Number(data.node.Average_CPC)),
-      },
-      {
-        name: "Cost",
-        data: data.map(data => Number(data.node.Cost)),
-      },
-      {
-        name: "Top EPC",
-        data: data.map(data => Number(data.node.EPC)),
-      },
-    ],
-  }
-
-  const roiOptions = {
-    chart: {
-      type: "column",
-    },
-    title: {
-      text: "ROI / Revenue / Conversions ",
-    },
-    xAxis: {
-      categories: countries,
-    },
-    yAxis: {
-      title: {
-        text: "",
-      },
-    },
-    series: [
-      {
-        name: "ROI",
-        data: data.map(data => Number(data.node.ROI)),
-      },
-      {
-        name: "Revenue",
-        data: data.map(data => Number(data.node.Revenue)),
-      },
-      {
-        name: "Conversions",
-        data: data.map(data => Number(data.node.Conversions)),
-      },
-    ],
-  }
-
-  const clicksOptions = {
-    chart: {
-      type: "column",
-    },
-    title: {
-      text: "ROI / Revenue / Conversions ",
-    },
-    xAxis: {
-      categories: countries,
-    },
-    yAxis: {
-      title: {
-        text: "",
-      },
-    },
-    series: [
-      {
-        name: "Impressions",
-        data: data.map(data => Number(data.node.Impressions)),
-      },
-      {
-        name: "Clicks",
-        data: data.map(data => Number(data.node.Clicks)),
-      },
-
-    ],
-  }
   
   return (
     <div>
       {!data && <p>loading data</p>}
       {data && (<>
-        {chart === 'cpc' && <HighchartsReact highcharts={Highcharts} options={cpcOptions} />}
+        {chart === 'cpc' && <HighchartsReact highcharts={Highcharts} options={cpcOptions(data, countries)} />}
         {chart === 'roi' && <>
-          <HighchartsReact highcharts={Highcharts} options={roiOptions} />
+          <HighchartsReact highcharts={Highcharts} options={roiOptions(data, countries)} />
 
           <form className={classes.root} autoComplete="off">
             <FormControl className={classes.formControl}>
@@ -181,12 +91,12 @@ const Chart = ({data}) => {
                 margin="normal"
               />
               <Button size="small" onClick={handleClick} disabled={activeStep === 2} >Calculate ROI </Button>
-              {calculatedRoi !== 0 && <ul><p>Your investment: $ {values.cost} in {values.country}</p>
+              {calculatedRoi !== 0 && <ul><p>Your cost: $ {values.cost} in {values.country}</p>
                                           <p>Your ROI: $ {calculatedRoi} </p></ul>}
             </FormControl>
           </form>
           </>}
-        {chart === 'clicks' && <HighchartsReact highcharts={Highcharts} options={clicksOptions} />}
+        {chart === 'clicks' && <HighchartsReact highcharts={Highcharts} options={clicksOptions(data, countries)} />}
 
         <MobileStepper
           variant="dots"

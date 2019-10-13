@@ -35,9 +35,7 @@ const Layout = ({ children }) => {
         }}
       >
         <main>{children}</main>
-        <footer>
-          © {new Date().getFullYear()}, presented by FRST MEDIA
-        </footer>
+        <footer>© {new Date().getFullYear()}, presented by FRST MEDIA</footer>
       </div>
     </>
   )

@@ -5,7 +5,6 @@ import Layout from "../components/layout"
 // import Image from "../components/image"
 import SEO from "../components/seo"
 
-
 export default ({ data }) => {
   const csv = data.allChartStatsCsv.edges
 
