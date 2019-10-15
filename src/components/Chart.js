@@ -13,7 +13,6 @@ const useStyles = makeStyles({
     flexGrow: 1,
     marginLeft: 275,
     backgroundColor: 'white',
-    disabled: 'opacity: 0'
   },
   disabledBtn: 0,
   formControl: {
