@@ -1,6 +1,6 @@
 export const availableCharts = ["cpc", "roi", "clicks"]
-
-export const clicksOptions = (data, countries) => {
+export const chartTypes = ["line","pie","column"]
+export const clicksOptions = (data) => {
   const options = {
     chart: {
       type: "column",
@@ -9,7 +9,7 @@ export const clicksOptions = (data, countries) => {
       text: "ROI / Revenue / Conversions ",
     },
     xAxis: {
-      categories: countries,
+      categories: data.map(data => data.node.Country),
     },
     yAxis: {
       title: {
@@ -30,7 +30,7 @@ export const clicksOptions = (data, countries) => {
   return options
 }
 
-export const roiOptions = (data, countries) => {
+export const roiOptions = (data) => {
   const options = {
     chart: {
       type: "column",
@@ -39,7 +39,7 @@ export const roiOptions = (data, countries) => {
       text: "ROI / Revenue / Conversions ",
     },
     xAxis: {
-      categories: countries,
+      categories: data.map(data => data.node.Country),
     },
     yAxis: {
       title: {
@@ -64,7 +64,7 @@ export const roiOptions = (data, countries) => {
   return options
 }
 
-export const cpcOptions = (data, countries) => {
+export const cpcOptions = (data) => {
   const options = {
     chart: {
       type: "column",
@@ -73,7 +73,7 @@ export const cpcOptions = (data, countries) => {
       text: "CPC / Cost / EPC ",
     },
     xAxis: {
-      categories: countries,
+      categories: data.map(data => data.node.Country),
     },
     yAxis: {
       title: {
@@ -97,3 +97,46 @@ export const cpcOptions = (data, countries) => {
   }
   return options
 }
+
+export const customOptions = (input) => {
+  const allProperties = Object.getOwnPropertyNames(input.selectedCountry)
+  console.log(allProperties.find(p => p === 'CPC'))
+  const options = {
+    chart: {
+      type: input.chartType,
+    },
+    title: {
+      text: `Your chart for ${input.selectedCountry}`,
+    },
+    xAxis: {
+      categories: input.selectedCountry,
+    },
+    yAxis: {
+      title: {
+        text: "USD $",
+      },
+    },
+    series: 'yes'
+    // input.pickedProperties.map(property => {
+    //     return{ 
+    //       name: property, 
+    //       data: input.selectedCountry[`${allProperties.find(p => p === property)}`]} 
+    //   })
+    // [
+      // {
+      //   name: "Average CPC",
+      //   data: data.map(data => Number(data.node.Average_CPC)),
+      // },
+      // {
+      //   name: "Cost",
+      //   data: data.map(data => Number(data.node.Cost)),
+      // },
+      // {
+      //   name: "Top EPC",
+      //   data: data.map(data => Number(data.node.EPC)),
+      // },
+    // ],
+  }
+  return options
+}
+

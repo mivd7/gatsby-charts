@@ -14,12 +14,6 @@ module.exports = {
         path: `${__dirname}/src/files`,
       },
     },
-    // {
-    //   resolve: `gatsby-transformer-csv`,
-    //   options: {
-    //     noheader: true,
-    //   },
-    // },
     `gatsby-plugin-material-ui`,
     `gatsby-transformer-csv`,
     `gatsby-transformer-remark`,
