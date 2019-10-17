@@ -20,7 +20,7 @@ const useStyles = makeStyles({
   },
 });
 
-const Chart = ({data}) => {
+const Chart = ({data, options}) => {
   const classes = useStyles();
   const theme = useTheme();
   const [activeStep, setActiveStep] = React.useState(0);
@@ -30,7 +30,6 @@ const Chart = ({data}) => {
       cost: 0,
   })
   const [calculatedRoi, setCalculatedRoi] = React.useState(0)
-
 
   const handleClick = () => {
     if (values.country && values.cost) {
@@ -95,7 +94,7 @@ const Chart = ({data}) => {
             </FormControl>
           </form>
           </>}
-        {chart === 'clicks' && <HighchartsReact highcharts={Highcharts} options={clicksOptions(data, countries)} />}
+        {chart === 'clicks' && <HighchartsReact highcharts={Highcharts} options={clicksOptions(data)} />}
 
         <MobileStepper
           variant="dots"

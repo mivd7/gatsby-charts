@@ -65,6 +65,7 @@ export const roiOptions = (data) => {
 }
 
 export const cpcOptions = (data) => {
+  console.log(data.map(data => data.node.Country))
   const options = {
     chart: {
       type: "column",
@@ -99,29 +100,29 @@ export const cpcOptions = (data) => {
 }
 
 export const customOptions = (input) => {
-  const allProperties = Object.getOwnPropertyNames(input.selectedCountry)
-  console.log(allProperties.find(p => p === 'CPC'))
+  const propertyData = input.pickedProperties.map(property => {
+    return { 
+      name: property, 
+      data: input.selectedCountry.node[`${property}`]
+    } 
+  })
+  console.log(propertyData)
   const options = {
     chart: {
       type: input.chartType,
     },
     title: {
-      text: `Your chart for ${input.selectedCountry}`,
+      text: 'Your chart',
     },
     xAxis: {
-      categories: input.selectedCountry,
+      categories: ["Hungary"]
     },
     yAxis: {
       title: {
         text: "USD $",
       },
     },
-    series: 'yes'
-    // input.pickedProperties.map(property => {
-    //     return{ 
-    //       name: property, 
-    //       data: input.selectedCountry[`${allProperties.find(p => p === property)}`]} 
-    //   })
+    series: propertyData
     // [
       // {
       //   name: "Average CPC",
@@ -137,6 +138,7 @@ export const customOptions = (input) => {
       // },
     // ],
   }
+  console.log(options)
   return options
 }
 

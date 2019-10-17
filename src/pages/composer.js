@@ -1,6 +1,8 @@
 import React from "react"
 import { Link, graphql } from "gatsby"
 import {Checkbox, List, ListItem, ListItemIcon, ListItemText, Select, MenuItem, Button} from '@material-ui/core'
+import Highcharts from "highcharts"
+import HighchartsReact from "highcharts-react-official"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
@@ -48,13 +50,11 @@ const Composer = ({ data }) => {
         })
         if(chartType !== '') {
             setIsComplete(true)
-    
         } else {
             console.log('not all fields filled!')
         }
     }
 
-    console.log(customOptions(options))
     return (
         <Layout>
         <SEO title="Composer" />
@@ -73,7 +73,7 @@ const Composer = ({ data }) => {
                 {countries.map(country => <MenuItem id={country} value={edges.find(e => e.node.Country === country)}>{country}</MenuItem>)}
         </Select>
 
-        {madeSelection && <><h2>Now pick the stats you wish to show and press continue</h2>
+        {madeSelection && <><h2>Now pick the stats you wish to show</h2>
             <List>
             {filteredHeaders.map(header => 
                 <ListItem button>
@@ -94,17 +94,18 @@ const Composer = ({ data }) => {
             <Select
                 value={chartType}
                 onChange={(e) => setChartType(e.target.value)}
-                name="country"
-                id="country"
+                name="chartType"
+                id="chartType"
                 inputProps={{
-                  name: 'country',
-                  id: 'country-simple',
+                  name: 'chartType',
+                  id: 'chartType-simple',
                 }}
               >
                 {chartTypes.map(type => <MenuItem id={chartTypes.indexOf(type)} value={type}>{type}</MenuItem>)}
             </Select>
             <Button onClick={handleSubmit}>Continue</Button>
             </>}
+          {isComplete && <HighchartsReact highcharts={Highcharts} options={customOptions(options)} />}
 
         <Link to="/">Go back to the homepage</Link>
         </Layout>
