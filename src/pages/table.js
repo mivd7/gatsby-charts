@@ -20,14 +20,13 @@ const useStyles = makeStyles(theme => ({
     padding: "25px",
   },
   table: {
-    minWidth: 1000,
+    // minWidth: 1000,
   },
 }))
 
 export default ({ data }) => {
   const edges = data.allChartStatsCsv.edges
   const tableHeaders = edges.map(e => Object.keys(e.node))[0]
-
   const filteredHeaders = tableHeaders.filter(h => h !== "Country")
   const classes = useStyles()
 

@@ -41,7 +41,7 @@ const Chart = ({ data }) => {
               />
             </Grid>
             <Grid item xs={12}>
-              <Divider/><br/>
+              <Divider/>
             </Grid>
             <Grid item xs={9}>
               <HighchartsReact
@@ -51,9 +51,7 @@ const Chart = ({ data }) => {
               />
             </Grid>
             <Grid item xs={3}>
-
               <div className={classes.paper}>
-
                 <CountrySelector data={data} />
               </div>
             </Grid>

@@ -55,7 +55,7 @@ export const setRoiOptions = data => {
       type: "column",
     },
     title: {
-      text: "ROI / Revenue / Conversions ",
+      text: "CPC / EPC / ROI ",
     },
     xAxis: {
       categories: countries.map(country => `${country.emoji} ${country.name}`),

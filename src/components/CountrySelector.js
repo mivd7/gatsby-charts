@@ -1,6 +1,6 @@
 import React from "react"
 import { makeStyles } from "@material-ui/core/styles"
-import { List, ListItem, ListItemIcon, ListItemText, Checkbox, Divider, Typography} from "@material-ui/core"
+import { List, ListItem, ListItemIcon, ListItemText, Checkbox, Divider, Typography } from "@material-ui/core"
 // import { ExpandMore, ExpandLess } from "@material-ui/icons";
 
 import countries from "../lib/countries"
@@ -11,7 +11,7 @@ const useStyles = makeStyles(theme => ({
     width: '100%'
   },
   drawerPaper: {
-    minWidth: 150,
+    minWidth: 125,
   },
   toolbar: theme.mixins.toolbar,
   content: {
@@ -21,23 +21,29 @@ const useStyles = makeStyles(theme => ({
   },
   divider: {
     minHeight: 350
+  },
+  menuText: {
+    textAlign: "center",
+    fontSize: 14
   }
 }))
 
-const CountrySelector = ({ data }) => {
+const CountrySelector = () => {
   const classes = useStyles()
   return (
     <div className={classes.root}>
       <Divider className={classes.divider} orientation="vertical" />
       <List>
-          <Typography>Select Countries to Compare</Typography>
+          <Typography className={classes.menuText}>Compare Countries</Typography>
           {countries.map(country => (
             <ListItem button key={country.name}>
               <Checkbox />
-              <ListItemText
-                className={classes.drawerPaper}
-                primary={country.name}
-              />
+              <Typography className={classes.menuText}>
+                <ListItemText
+                  className={classes.drawerPaper}
+                  secondary={country.name}
+                />
+              </Typography>
               <ListItemIcon>{country.emoji}</ListItemIcon>
             </ListItem>
           ))}

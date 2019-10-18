@@ -12,7 +12,7 @@ export default ({ data }) => {
     <Layout>
       <SEO title="Home" />
       <Chart data={csv} />
-      <Link to="/table">See table</Link>
+      <Link to="/table">See full data table</Link>
       <br />
       <Link to="/composer">Compose your own charts</Link>
     </Layout>
