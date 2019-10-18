@@ -1,9 +1,10 @@
-import {calculateRoi} from './formulas';
+import { calculateRoi } from "./formulas"
+import countries from "./countries"
 
 export const availableCharts = ["roi", "population"]
-export const chartTypes = ["line","pie","column"]
+export const chartTypes = ["line", "pie", "column"]
 
-export const setPopulationOptions = (data) => {
+export const setPopulationOptions = data => {
   const options = {
     chart: {
       type: "column",
@@ -12,38 +13,43 @@ export const setPopulationOptions = (data) => {
       text: "Population / ROI ",
     },
     xAxis: {
-      categories: data.map(data => data.node.Country),
+      categories: countries.map(country => `${country.emoji} ${country.name}`),
     },
-    yAxis: [{
-      title: {
-        text: "Population",
+    yAxis: [
+      {
+        title: {
+          text: "Population",
         },
-    },{
-      title: {
-        text: "ROI %"
       },
-      opposite: true
-    }],
+      {
+        title: {
+          text: "ROI %",
+        },
+        opposite: true,
+      },
+    ],
     series: [
       {
         name: "Population",
         data: data.map(data => Number(data.node.Population)),
-        yAxis: 0
+        yAxis: 0,
       },
       {
         name: "ROI",
-        data: data.map(data => Number(calculateRoi(data.node.EPC, data.node.Average_CPC))),
+        data: data.map(data =>
+          Number(calculateRoi(data.node.EPC, data.node.Average_CPC))
+        ),
         yAxis: 1,
         tooltip: {
-          valueSuffix: ' %'
-        }
+          valueSuffix: " %",
+        },
       },
     ],
   }
   return options
 }
 
-export const setRoiOptions = (data) => {
+export const setRoiOptions = data => {
   const options = {
     chart: {
       type: "column",
@@ -52,88 +58,92 @@ export const setRoiOptions = (data) => {
       text: "ROI / Revenue / Conversions ",
     },
     xAxis: {
-      categories: data.map(data => data.node.Country),
+      categories: countries.map(country => `${country.emoji} ${country.name}`),
     },
-    yAxis: [{
+    yAxis: [
+      {
         title: {
           text: "$ USD",
-          },
-      },{
-        title: {
-          text: " % "
         },
-        opposite: true
-      }],
+      },
+      {
+        title: {
+          text: "ROI %",
+        },
+        opposite: true,
+      },
+    ],
     series: [
       {
         name: "Average CPC",
         data: data.map(data => Number(data.node.Average_CPC)),
         yAxis: 0,
         tooltip: {
-          valuePrefix: '$ '
-        }
+          valuePrefix: "$ ",
+        },
       },
       {
         name: "Top EPC",
         data: data.map(data => Number(data.node.EPC)),
         yAxis: 0,
         tooltip: {
-          valuePrefix: '$ '
-        }
+          valuePrefix: "$ ",
+        },
       },
       {
         name: "ROI",
-        data: data.map(data => Number(calculateRoi(data.node.EPC, data.node.Average_CPC))),
+        data: data.map(data =>
+          Number(calculateRoi(data.node.EPC, data.node.Average_CPC))
+        ),
         yAxis: 1,
         tooltip: {
-          valueSuffix: ' %'
-        }
+          valueSuffix: " %",
+        },
       },
     ],
   }
   return options
 }
 
-export const customizedOptions = (input) => {
+export const customizedOptions = input => {
   const propertyData = input.pickedProperties.map(property => {
-    return { 
-      name: property, 
-      data: input.selectedCountry.node[`${property}`]
-    } 
+    return {
+      name: property,
+      data: input.selectedCountry.node[`${property}`],
+    }
   })
-  
+
   const options = {
     chart: {
       type: input.chartType,
     },
     title: {
-      text: 'Your chart',
+      text: "Your chart",
     },
     xAxis: {
-      categories: ["Hungary"]
+      categories: ["Hungary"],
     },
     yAxis: {
       title: {
         text: "USD $",
       },
     },
-    series: propertyData
+    series: propertyData,
     // [
-      // {
-      //   name: "Average CPC",
-      //   data: data.map(data => Number(data.node.Average_CPC)),
-      // },
-      // {
-      //   name: "Cost",
-      //   data: data.map(data => Number(data.node.Cost)),
-      // },
-      // {
-      //   name: "Top EPC",
-      //   data: data.map(data => Number(data.node.EPC)),
-      // },
+    // {
+    //   name: "Average CPC",
+    //   data: data.map(data => Number(data.node.Average_CPC)),
+    // },
+    // {
+    //   name: "Cost",
+    //   data: data.map(data => Number(data.node.Cost)),
+    // },
+    // {
+    //   name: "Top EPC",
+    //   data: data.map(data => Number(data.node.EPC)),
+    // },
     // ],
   }
   console.log(options)
   return options
 }
-

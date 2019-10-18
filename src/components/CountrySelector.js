@@ -1,26 +1,17 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { List, ListItem, ListItemIcon, ListItemText, Checkbox } from '@material-ui/core';
+import React from "react"
+import { makeStyles } from "@material-ui/core/styles"
+import { List, ListItem, ListItemIcon, ListItemText, Checkbox, Divider, Typography} from "@material-ui/core"
+// import { ExpandMore, ExpandLess } from "@material-ui/icons";
 
-import countries from '../lib/countries'
-
-const drawerWidth = 240;
+import countries from "../lib/countries"
 
 const useStyles = makeStyles(theme => ({
   root: {
-    display: 'flex',
-  },
-  appBar: {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginRight: drawerWidth,
-  },
-  drawer: {
-    width: drawerWidth,
-    flexShrink: 0,
+    display: "flex",
+    width: '100%'
   },
   drawerPaper: {
-    width: drawerWidth,
-    margin: '0 10px'
+    minWidth: 150,
   },
   toolbar: theme.mixins.toolbar,
   content: {
@@ -28,23 +19,30 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.background.default,
     padding: theme.spacing(3),
   },
-}));
+  divider: {
+    minHeight: 350
+  }
+}))
 
-const CountrySelector = ({data}) => {
+const CountrySelector = ({ data }) => {
   const classes = useStyles()
   return (
-    <>
-        <List>
+    <div className={classes.root}>
+      <Divider className={classes.divider} orientation="vertical" />
+      <List>
+          <Typography>Select Countries to Compare</Typography>
           {countries.map(country => (
             <ListItem button key={country.name}>
-                <Checkbox />
-                <ListItemText primary={country.name} />
-                <ListItemIcon className={classes.drawerPaper}>{country.emoji}</ListItemIcon>
+              <Checkbox />
+              <ListItemText
+                className={classes.drawerPaper}
+                primary={country.name}
+              />
+              <ListItemIcon>{country.emoji}</ListItemIcon>
             </ListItem>
           ))}
-        </List>
-
-    </>
+      </List>
+    </div>
   )
 }
 
