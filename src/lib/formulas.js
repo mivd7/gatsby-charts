@@ -3,6 +3,7 @@ export const divide = (dividend, divisor) => {
   return dividend / divisor
 }
 
-export const calculateRoi = (rev, cost) => {
-  return rev - cost * 100
+export const calculateRoi = (epc, cpc) => {
+  const roi = (epc - cpc) / cpc
+  return +roi.toFixed(2)
 }

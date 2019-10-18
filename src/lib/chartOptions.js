@@ -1,5 +1,8 @@
-export const availableCharts = ["cpc", "roi", "clicks"]
+import {calculateRoi} from './formulas';
+
+export const availableCharts = ["roi", "clicks"]
 export const chartTypes = ["line","pie","column"]
+
 export const clicksOptions = (data) => {
   const options = {
     chart: {
@@ -30,7 +33,7 @@ export const clicksOptions = (data) => {
   return options
 }
 
-export const roiOptions = (data) => {
+export const setRoiOptions = (data) => {
   const options = {
     chart: {
       type: "column",
@@ -41,23 +44,40 @@ export const roiOptions = (data) => {
     xAxis: {
       categories: data.map(data => data.node.Country),
     },
-    yAxis: {
-      title: {
-        text: "",
-      },
-    },
+    yAxis: [{
+        title: {
+          text: "$ USD",
+          },
+      },{
+        title: {
+          text: " % "
+        },
+        opposite: true
+      }],
     series: [
       {
+        name: "Average CPC",
+        data: data.map(data => Number(data.node.Average_CPC)),
+        yAxis: 0,
+        tooltip: {
+          valuePrefix: '$ '
+        }
+      },
+      {
+        name: "Top EPC",
+        data: data.map(data => Number(data.node.EPC)),
+        yAxis: 0,
+        tooltip: {
+          valuePrefix: '$ '
+        }
+      },
+      {
         name: "ROI",
-        data: data.map(data => Number(data.node.ROI)),
-      },
-      {
-        name: "Revenue",
-        data: data.map(data => Number(data.node.Revenue)),
-      },
-      {
-        name: "Conversions",
-        data: data.map(data => Number(data.node.Conversions)),
+        data: data.map(data => Number(calculateRoi(data.node.EPC, data.node.Average_CPC))),
+        yAxis: 1,
+        tooltip: {
+          valueSuffix: ' %'
+        }
       },
     ],
   }
