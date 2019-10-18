@@ -35,6 +35,7 @@ export const query = graphql`
           Impressions
           ROI
           Revenue
+          Population
         }
       }
     }

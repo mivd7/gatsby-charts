@@ -1,32 +1,43 @@
 import {calculateRoi} from './formulas';
 
-export const availableCharts = ["roi", "clicks"]
+export const availableCharts = ["roi", "population"]
 export const chartTypes = ["line","pie","column"]
 
-export const clicksOptions = (data) => {
+export const setPopulationOptions = (data) => {
+
   const options = {
     chart: {
       type: "column",
     },
     title: {
-      text: "ROI / Revenue / Conversions ",
+      text: "Population / ROI ",
     },
     xAxis: {
       categories: data.map(data => data.node.Country),
     },
-    yAxis: {
+    yAxis: [{
       title: {
         text: "",
+        },
+    },{
+      title: {
+        text: "ROI %"
       },
-    },
+      opposite: true
+    }],
     series: [
       {
-        name: "Impressions",
-        data: data.map(data => Number(data.node.Impressions)),
+        name: "Population",
+        data: data.map(data => Number(data.node.Population)),
+        yAxis: 0
       },
       {
-        name: "Clicks",
-        data: data.map(data => Number(data.node.Clicks)),
+        name: "ROI",
+        data: data.map(data => Number(calculateRoi(data.node.EPC, data.node.Average_CPC))),
+        yAxis: 1,
+        tooltip: {
+          valueSuffix: ' %'
+        }
       },
     ],
   }

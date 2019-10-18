@@ -1,9 +1,9 @@
 module.exports = {
   pathPrefix: `/frstmedia`,
   siteMetadata: {
-    title: `CPL & IVR Charts`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
-    author: `@gatsbyjs`,
+    title: `IVR Charts`,
+    description: `Check out our stats on our new markets`,
+    author: `MIVD`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
