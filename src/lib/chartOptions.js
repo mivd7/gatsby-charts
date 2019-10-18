@@ -4,7 +4,6 @@ export const availableCharts = ["roi", "population"]
 export const chartTypes = ["line","pie","column"]
 
 export const setPopulationOptions = (data) => {
-
   const options = {
     chart: {
       type: "column",
@@ -17,7 +16,7 @@ export const setPopulationOptions = (data) => {
     },
     yAxis: [{
       title: {
-        text: "",
+        text: "Population",
         },
     },{
       title: {
@@ -95,42 +94,7 @@ export const setRoiOptions = (data) => {
   return options
 }
 
-export const cpcOptions = (data) => {
-  console.log(data.map(data => data.node.Country))
-  const options = {
-    chart: {
-      type: "column",
-    },
-    title: {
-      text: "CPC / Cost / EPC ",
-    },
-    xAxis: {
-      categories: data.map(data => data.node.Country),
-    },
-    yAxis: {
-      title: {
-        text: "USD $",
-      },
-    },
-    series: [
-      {
-        name: "Average CPC",
-        data: data.map(data => Number(data.node.Average_CPC)),
-      },
-      {
-        name: "Cost",
-        data: data.map(data => Number(data.node.Cost)),
-      },
-      {
-        name: "Top EPC",
-        data: data.map(data => Number(data.node.EPC)),
-      },
-    ],
-  }
-  return options
-}
-
-export const customOptions = (input) => {
+export const customizedOptions = (input) => {
   const propertyData = input.pickedProperties.map(property => {
     return { 
       name: property, 

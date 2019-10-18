@@ -10,10 +10,10 @@ const useStyles = makeStyles({
     width: '100%'
   },
   roiChart: {
-    marginBottom: 75
+    margin: '50px 0'
   },
   popChart: {
-    marginTop: 75,
+    margin: '50px 0'
   }
 
 });
