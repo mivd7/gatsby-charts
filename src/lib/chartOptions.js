@@ -101,7 +101,7 @@ export const customizedOptions = (input) => {
       data: input.selectedCountry.node[`${property}`]
     } 
   })
-  console.log(propertyData)
+  
   const options = {
     chart: {
       type: input.chartType,

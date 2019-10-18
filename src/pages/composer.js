@@ -6,7 +6,7 @@ import HighchartsReact from "highcharts-react-official"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
-import {chartTypes, customOptions} from '../lib/chartOptions'
+import {chartTypes, customizedOptions} from '../lib/chartOptions'
 
 // const useStyles = makeStyles(theme => ({
 //   root: {
@@ -105,7 +105,7 @@ const Composer = ({ data }) => {
             </Select>
             <Button onClick={handleSubmit}>Continue</Button>
             </>}
-          {isComplete && <HighchartsReact highcharts={Highcharts} options={customOptions(options)} />}
+          {isComplete && <HighchartsReact highcharts={Highcharts} options={customizedOptions(options)} />}
 
         <Link to="/">Go back to the homepage</Link>
         </Layout>
