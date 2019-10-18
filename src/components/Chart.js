@@ -11,12 +11,6 @@ const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
   },
-  roiChart: {
-    margin: "50px 0",
-  },
-  popChart: {
-    margin: "75px 0",
-  },
   paper: {
     // width: '100%',
     padding: theme.spacing(2),
@@ -24,6 +18,9 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.text.secondary,
     marginBottom: 50
   },
+  divider: {
+    margin: '37.5px 0'
+  }
 }))
 
 const Chart = ({ data }) => {
@@ -41,7 +38,7 @@ const Chart = ({ data }) => {
               />
             </Grid>
             <Grid item xs={12}>
-              <Divider/>
+              <Divider className={classes.divider}/>
             </Grid>
             <Grid item xs={9}>
               <HighchartsReact
